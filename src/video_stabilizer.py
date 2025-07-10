@@ -159,9 +159,19 @@ class VideoStabilizer:
         cap = cv2.VideoCapture(video_path)
         width, height, fps, frame_count = video_info
         
-        # Create video writer
-        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+        # Create video writer with H.264 codec for better compatibility
+        # Try H.264 first (best compatibility), fallback to mp4v if needed
+        fourcc = cv2.VideoWriter_fourcc(*'avc1')  # H.264 codec
         out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
+        
+        # Check if writer was created successfully
+        if not out.isOpened():
+            print("Warning: H.264 codec failed, trying mp4v fallback...")
+            fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+            out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
+            
+            if not out.isOpened():
+                raise RuntimeError(f"Failed to create video writer for {output_path}")
         
         frame_idx = 0
         while True:
