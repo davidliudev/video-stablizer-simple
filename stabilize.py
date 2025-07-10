@@ -47,20 +47,20 @@ def main():
     
     # Validate input file
     if not os.path.exists(args.input_video):
-        print(f"❌ Error: Input video not found: {args.input_video}")
+        print(f"Error: Input video not found: {args.input_video}")
         sys.exit(1)
     
     # Create output directory if needed
     output_dir = os.path.dirname(args.output_video)
     if output_dir and not os.path.exists(output_dir):
         os.makedirs(output_dir)
-        print(f"📁 Created output directory: {output_dir}")
+        print(f"Created output directory: {output_dir}")
     
     # Check if output file already exists
     if os.path.exists(args.output_video):
-        response = input(f"⚠️  Output file already exists: {args.output_video}\nOverwrite? (y/N): ")
+        response = input(f"Output file already exists: {args.output_video}\nOverwrite? (y/N): ")
         if response.lower() != 'y':
-            print("❌ Operation cancelled")
+            print("Operation cancelled")
             sys.exit(1)
     
     try:
@@ -70,10 +70,10 @@ def main():
         # Perform stabilization
         stabilizer.stabilize_video(args.input_video, args.output_video)
         
-        print(f"\n🎉 Success! Stabilized video saved to: {args.output_video}")
+        print(f"\nSuccess! Stabilized video saved to: {args.output_video}")
         
     except Exception as e:
-        print(f"❌ Error during stabilization: {e}")
+        print(f"Error during stabilization: {e}")
         sys.exit(1)
 
 

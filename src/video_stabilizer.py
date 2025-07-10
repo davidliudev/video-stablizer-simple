@@ -225,7 +225,7 @@ class VideoStabilizer:
         print("\n3. Applying stabilization...")
         self.apply_transforms(input_path, smooth_transforms, output_path, video_info)
         
-        print(f"\n✅ Stabilization complete!")
+        print(f"\nStabilization complete!")
         print(f"Output saved to: {output_path}")
 
 
